@@ -3,23 +3,22 @@ import axios from "axios";
 
 import Activity from "./components/Activity";
 import Navigation from "./components/Navigation";
+import AskActivity from "./components/AskActivity";
 
 function App() {
   const [activity, setActivity] = useState({});
-
+  const fetchData = async (params) => {
+    try {
+      const response = await axios.get(
+        "http://www.boredapi.com/api/activity/",
+        { params }
+      );
+      setActivity(response.data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "http://www.boredapi.com/api/activity/"
-        );
-        setActivity(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error(error.message);
-      }
-    };
-
     fetchData();
   }, []);
   return (
@@ -33,6 +32,7 @@ function App() {
         price={activity?.price}
         link={activity?.link}
       />
+      <AskActivity fetchData={fetchData} />
     </div>
   );
 }
