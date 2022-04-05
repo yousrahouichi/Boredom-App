@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import { Stack } from "react-bootstrap";
 
@@ -9,8 +8,6 @@ import AskActivity from "../components/AskActivity";
 
 const Home = () => {
   const [activity, setActivity] = useState({});
-  const { favorites } = useSelector((state) => state.favorite);
-  console.log(favorites);
   const fetchData = async (params) => {
     try {
       const response = await axios.get(

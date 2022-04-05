@@ -6,7 +6,6 @@ import Activity from "../components/Activity";
 
 const Favorites = () => {
   const { favorites } = useSelector((state) => state.favorite);
-  console.log(favorites);
   return (
     <>
       <Navigation />

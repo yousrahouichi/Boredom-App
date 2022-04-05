@@ -1,7 +1,7 @@
 import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 
-import { addFavorite } from "../redux/favorites";
+import { addFavorite, removeFavorite } from "../redux/favorites";
 
 const Activity = ({
   id,
@@ -13,6 +13,7 @@ const Activity = ({
   link,
 }) => {
   const dispatch = useDispatch();
+  const isFavorites = window.location.pathname === "/favorites";
   return (
     <Card style={{ width: "18rem" }}>
       {title ? (
@@ -27,25 +28,37 @@ const Activity = ({
             <ListGroupItem>Price: {price}</ListGroupItem>
             {link && <ListGroupItem>Link: {link}</ListGroupItem>}
           </ListGroup>
-          <Card.Body>
-            <Card.Link
-              onClick={() => {
-                dispatch(
-                  addFavorite({
-                    id,
-                    title,
-                    accessibility,
-                    type,
-                    participants,
-                    price,
-                    link,
-                  })
-                );
-              }}
-            >
-              Add to favorites
-            </Card.Link>
-          </Card.Body>
+          {isFavorites ? (
+            <Card.Body>
+              <Card.Link
+                onClick={() => {
+                  dispatch(removeFavorite({ id }));
+                }}
+              >
+                Remove from favorites
+              </Card.Link>
+            </Card.Body>
+          ) : (
+            <Card.Body>
+              <Card.Link
+                onClick={() => {
+                  dispatch(
+                    addFavorite({
+                      id,
+                      title,
+                      accessibility,
+                      type,
+                      participants,
+                      price,
+                      link,
+                    })
+                  );
+                }}
+              >
+                Add to favorites
+              </Card.Link>
+            </Card.Body>
+          )}
         </>
       ) : (
         <Card.Body>
