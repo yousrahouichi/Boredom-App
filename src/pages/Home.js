@@ -11,7 +11,7 @@ const Home = () => {
   const fetchData = async (params) => {
     try {
       const response = await axios.get(
-        "http://www.boredapi.com/api/activity/",
+        "https://www.boredapi.com/api/activity/",
         { params }
       );
       setActivity(response.data);
