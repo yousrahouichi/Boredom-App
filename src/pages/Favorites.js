@@ -10,6 +10,7 @@ const Favorites = () => {
   const { favorites } = useSelector((state) => state.favorite);
   const [filteredResults, setFilteredResults] = useState([]);
   const [applyFilter, setApplyFilter] = useState(false);
+
   const searchItems = (searchValue) => {
     if (searchValue !== "") {
       setApplyFilter(true);
@@ -25,11 +26,20 @@ const Favorites = () => {
       setFilteredResults(favorites);
     }
   };
+  const filterItems = (type) => {
+    if (type) {
+      setApplyFilter(true);
+      setFilteredResults(favorites.filter((item) => item.type === type));
+    } else {
+      setApplyFilter(false);
+      setFilteredResults(favorites);
+    }
+  };
   return (
     <>
       <Navigation />
       <Stack gap={5}>
-        <FilterBar searchItems={searchItems} />
+        <FilterBar searchItems={searchItems} filterItems={filterItems} />
         <Stack gap={5}>
           {applyFilter
             ? filteredResults.map(
