@@ -1,5 +1,10 @@
 import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+
+import { addFavorite } from "../redux/favorites";
+
 const Activity = ({
+  id,
   title,
   accessibility,
   type,
@@ -7,6 +12,9 @@ const Activity = ({
   price,
   link,
 }) => {
+  const dispatch = useDispatch();
+  const { favorites } = useSelector((state) => state.favorite);
+  console.log(favorites);
   return (
     <Card style={{ width: "18rem" }}>
       {title ? (
@@ -22,7 +30,23 @@ const Activity = ({
             {link && <ListGroupItem>Link: {link}</ListGroupItem>}
           </ListGroup>
           <Card.Body>
-            <Card.Link href="#">Add to favorites</Card.Link>
+            <Card.Link
+              onClick={() => {
+                dispatch(
+                  addFavorite({
+                    id,
+                    title,
+                    accessibility,
+                    type,
+                    participants,
+                    price,
+                    link,
+                  })
+                );
+              }}
+            >
+              Add to favorites
+            </Card.Link>
           </Card.Body>
         </>
       ) : (

@@ -7,6 +7,7 @@ import AskActivity from "./components/AskActivity";
 
 function App() {
   const [activity, setActivity] = useState({});
+
   const fetchData = async (params) => {
     try {
       const response = await axios.get(
@@ -25,6 +26,7 @@ function App() {
     <div className="App">
       <Navigation />
       <Activity
+        id={activity?.key}
         title={activity?.activity}
         accessibility={activity?.accessibility}
         type={activity?.type}
