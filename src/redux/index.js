@@ -5,4 +5,5 @@ const store = configureStore({
     favorite: favoriteSlice,
   },
 });
+console.log("create store");
 export default store;

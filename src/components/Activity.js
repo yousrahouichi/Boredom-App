@@ -1,5 +1,5 @@
 import { Card, ListGroup, ListGroupItem } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { addFavorite } from "../redux/favorites";
 
@@ -13,8 +13,6 @@ const Activity = ({
   link,
 }) => {
   const dispatch = useDispatch();
-  const { favorites } = useSelector((state) => state.favorite);
-  console.log(favorites);
   return (
     <Card style={{ width: "18rem" }}>
       {title ? (
