@@ -3,14 +3,20 @@ import { Form, Button } from "react-bootstrap";
 import RangeSlider from "react-bootstrap-range-slider";
 const AskActivity = ({ fetchData }) => {
   const [type, setType] = useState("");
-  const [price, setPrice] = useState(0);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(1);
+
   return (
     <Form style={{ width: "18rem" }}>
       <Form.Select
         aria-label="Default select example"
         value={type}
         onChange={(e) => {
-          setType(e.target.value);
+          if (e.target.value === "Type") {
+            setType(null);
+          } else {
+            setType(e.target.value);
+          }
         }}
       >
         <option>Type</option>
@@ -25,11 +31,21 @@ const AskActivity = ({ fetchData }) => {
         <option value="busywork">busywork</option>
       </Form.Select>
 
-      <Form.Label>Price</Form.Label>
+      <Form.Label>Min Price</Form.Label>
       <RangeSlider
-        value={price}
+        value={minPrice}
         onChange={(e) => {
-          setPrice(e.target.value);
+          setMinPrice(e.target.value);
+        }}
+        step={0.1}
+        min={0}
+        max={1}
+      />
+      <Form.Label>Max Price</Form.Label>
+      <RangeSlider
+        value={maxPrice}
+        onChange={(e) => {
+          setMaxPrice(e.target.value);
         }}
         step={0.1}
         min={0}
@@ -41,7 +57,7 @@ const AskActivity = ({ fetchData }) => {
         type="submit"
         onClick={(e) => {
           e.preventDefault();
-          fetchData({ type, price });
+          fetchData({ type, minprice: minPrice, maxprice: maxPrice });
         }}
       >
         Ask for activity
